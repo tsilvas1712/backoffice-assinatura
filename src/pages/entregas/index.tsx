@@ -2,50 +2,28 @@ import Layout from "@/layout/Layout";
 import PageTitle from "@/components/PageTitle";
 import {
   Flex,
-  Card,
   Text,
-  Heading,
-  Icon,
   Table,
   Tr,
   Th,
   Thead,
   Tbody,
   Td,
+  HStack,
+  Button,
+  Icon,
 } from "@chakra-ui/react";
-import { HiCamera, HiCube, HiTruck, HiUserGroup } from "react-icons/hi";
-import CardDash from "@/components/CardDash";
-import { useDashboard } from "@/services/hooks/useDashboard";
+import { useDeliveries } from "@/services/hooks/Entregas/useDeliveries";
+import { RiDownload2Fill, RiDeleteBin2Fill, RiAlertFill } from "react-icons/ri";
 
-export default function Home() {
-  const query = useDashboard();
+export default function Entregas() {
+  const { data } = useDeliveries();
+
   return (
     <>
       <Layout>
-        <PageTitle title="Painel de Controle" />
+        <PageTitle title="Entregas" />
         <Flex w="100%" direction="column">
-          <Flex gap="4" wrap="wrap" mb="8">
-            <CardDash
-              title="Fotos"
-              counter={query.data?.files.length}
-              icon={HiCamera}
-            />
-            <CardDash
-              title="Usuários"
-              counter={query.data?.users.length}
-              icon={HiUserGroup}
-            />
-            <CardDash
-              title="Engregas"
-              counter={query.data?.shipped.length}
-              icon={HiTruck}
-            />
-            <CardDash
-              title="Pedidos"
-              counter={query.data?.deliveries.length}
-              icon={HiCube}
-            />
-          </Flex>
           <Flex direction="column">
             <Text as="i" fontSize="3xl">
               Ultimos Usuários
@@ -54,19 +32,22 @@ export default function Home() {
               <Table bg="white" boxShadow="lg">
                 <Thead bg="lifewall-yellow" color="lifewall-black">
                   <Tr>
+                    <Th>#</Th>
                     <Th>Nome</Th>
-                    <Th>E-mail</Th>
+                    <Th>Status</Th>
                     <Th>Data de Cadastro</Th>
+                    <Th>Ações</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {query.data?.lastUsers.map((user, key) => {
+                  {data?.map((delivery, key) => {
                     return (
                       <Tr key={key}>
-                        <Td>{user.name}</Td>
-                        <Td>{user.email}</Td>
+                        <Td>{delivery.id}</Td>
+                        <Td>{delivery.User.name}</Td>
+                        <Td>{delivery.StatusDelivery.status}</Td>
                         <Td>
-                          {new Date(user.createdAt).toLocaleDateString(
+                          {new Date(delivery.created_at).toLocaleDateString(
                             "pt-BR",
                             {
                               day: "2-digit",
@@ -74,6 +55,20 @@ export default function Home() {
                               year: "numeric",
                             }
                           )}
+                        </Td>
+                        <Td>
+                          <HStack>
+                            <Button
+                              as="a"
+                              href={`/entregas/${delivery.id}`}
+                              colorScheme="green"
+                            >
+                              <Icon as={RiDownload2Fill} />
+                            </Button>
+                            <Button colorScheme="yellow">
+                              <Icon as={RiAlertFill} />
+                            </Button>
+                          </HStack>
                         </Td>
                       </Tr>
                     );

@@ -7,8 +7,8 @@ interface CardDashProps {
 }
 export default function CardDash({ title, counter, icon }: CardDashProps) {
   return (
-    <Card w="72" h="36" bg="lifewall-pastel" p="4" boxShadow="xl">
-      <Flex gap="4" justify="space-between" justifyContent="right">
+    <Card h="36" bg="lifewall-pastel" p="4" boxShadow="xl">
+      <Flex gap="4" w="64" justify="space-between" justifyContent="right">
         <Flex direction="column" justify="right" gap="2">
           <Heading size="lg">{title}</Heading>
           <Text textAlign="right" fontSize="xl">

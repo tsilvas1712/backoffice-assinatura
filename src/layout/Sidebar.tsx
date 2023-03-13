@@ -66,7 +66,7 @@ export default function Sidebar() {
               </Text>
             </Link>
             <Link
-              href="#"
+              href="/entregas"
               display="flex"
               alignItems="center"
               borderRadius="md"
