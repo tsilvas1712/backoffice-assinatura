@@ -51,7 +51,7 @@ export default function Sidebar() {
               </Text>
             </Link>
             <Link
-              href="#"
+              href="/usuarios"
               display="flex"
               alignItems="center"
               borderRadius="md"

@@ -26,7 +26,7 @@ export default function Entregas() {
         <Flex w="100%" direction="column">
           <Flex direction="column">
             <Text as="i" fontSize="3xl">
-              Ultimos Usuários
+              Ultimos Pedidos
             </Text>
             <Flex>
               <Table bg="white" boxShadow="lg">
